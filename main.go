@@ -10,15 +10,27 @@ import(
 func main() {
 	html := flag.Bool("embed", false, "Embeds the converted DML in an HTML body before writing it out.")
 	flag.Parse()
+	inpath := ""
+	outpath := ""
+	if flag.NArg() < 2 {
+		fmt.Println("Insufficient arguments.")
+		return
+	}
 
-	file, err := ioutil.ReadFile(flag.Arg(0))
+	inpath = flag.Arg(0)
+	outpath = flag.Arg(1)
+
+
+	file, err := ioutil.ReadFile(inpath)
         if err != nil {
 		fmt.Println("Could not" + err.String())
         }
-
+	output := ""
 	if *html {
-		fmt.Println(dml.ToHTML(flag.Arg(0), string(file)))
+		output = dml.ToHTML(flag.Arg(0), string(file))
 	} else {
-		fmt.Println(dml.ParseDoc(string(file)))
+		output = dml.ParseDoc(string(file))
 	}
+
+	ioutil.WriteFile(outpath, []byte(output), 0)
 }

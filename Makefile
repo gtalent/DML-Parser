@@ -6,5 +6,7 @@ GOFILES=\
 
 include $(GOROOT)/src/Make.pkg
 
-link:
-	6l -o parser _go_.6
+fmt:
+	gofmt -w $(GOFILES)
+link: package
+	$(O)l -o main _go_.$(O)

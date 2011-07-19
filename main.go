@@ -32,5 +32,5 @@ func main() {
 		output = dml.ParseDoc(string(file))
 	}
 
-	ioutil.WriteFile(outpath, []byte(output), 0)
+	ioutil.WriteFile(outpath, []byte(output), 0755)
 }
